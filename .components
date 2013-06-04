@@ -1,0 +1,10 @@
+---
+:orm: datamapper
+:test: none
+:mock: none
+:script: jquery
+:renderer: haml
+:stylesheet: scss
+:namespace: InternMap
+:migration_format: number
+:admin_renderer: haml

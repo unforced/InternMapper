@@ -1,0 +1,35 @@
+- content_for :head do
+  = javascript_include_tag 'jquery.locationpicker'
+  :javascript
+    $(document).ready(function(){
+      $('input#intern_location').locationPicker();
+    });
+
+- form_for @intern, url(:interns, :create) do |f|
+  %fieldset
+    .row
+      .span4
+        = f.error_messages
+        %p
+          = f.label :name
+          = f.text_field :name, placeholder: "Name"
+        %p
+          = f.label :school
+          = f.select :school, collection: @schools, fields: [:name, :id], include_blank: true
+        %p
+          %label{for: 'intern_new_school'} Or add your school.
+          = f.text_field :new_school, placeholder: "New school"
+        %p
+          = f.label :company
+          = f.select :company, collection: @companies, fields: [:name, :id], include_blank: true
+        %p
+          %label{for: 'intern_new_company'} Or add your company.
+          = f.text_field :new_company, placeholder: "New company"
+        %p
+          = f.label :extra_info
+          = f.text_area :extra_info
+
+      .span8
+        = f.text_field :location
+
+    = f.submit "Save", class: 'button'

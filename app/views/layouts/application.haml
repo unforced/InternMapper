@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %title Interns
+    = stylesheet_link_tag 'application', 'bootstrap', 'bootstrap-responsive'
+    = javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap', 'maps-api'
+    = yield_content :head
+  %body
+    %header.navbar
+      .navbar-inner
+        .container
+          = link_to 'InternMap', '/', class: 'brand'
+          %nav
+            %ul.nav
+              %li
+                = link_to 'Add Yourself!', url(:interns, :new)
+    = flash_tag :notice
+    .container#content= yield
+

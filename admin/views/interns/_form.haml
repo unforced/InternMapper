@@ -1,0 +1,25 @@
+- error = @intern.errors.key?(:name) && @intern.errors[:name].count > 0
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :name, :class => 'control-label'
+  .controls
+    =f.text_field :name, :class => 'input-xlarge input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:name, :class => 'text-error') : pat(:example)
+- error = @intern.errors.key?(:school_id) && @intern.errors[:school_id].count > 0
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :school_id, :class => 'control-label'
+  .controls
+    =f.text_field :school_id, :class => 'input-xlarge input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:school_id, :class => 'text-error') : pat(:example)
+- error = @intern.errors.key?(:company_id) && @intern.errors[:company_id].count > 0
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :company_id, :class => 'control-label'
+  .controls
+    =f.text_field :company_id, :class => 'input-xlarge input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:company_id, :class => 'text-error') : pat(:example)
+
+.form-actions
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  &nbsp;
+  =f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  &nbsp;
+  =link_to pat(:cancel), url(:interns, :index), :class => 'btn'
