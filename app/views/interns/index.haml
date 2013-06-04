@@ -1,0 +1,55 @@
+- content_for :head do
+  = javascript_include_tag 'markerclusterer', 'oms.min'
+  :css
+    html, body, #content {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #internmap {
+      margin: 0;
+      padding: 0;
+      height: 80%;
+    }
+  :javascript
+    var map;
+    function initialize() {
+      var sf = new google.maps.LatLng(37.77493, -122.419416);
+      var opts = {
+        zoom: 12,
+        center: sf,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById('internmap'), opts);
+      markers = []
+      var oms = new OverlappingMarkerSpiderfier(map);
+      var iw = new google.maps.InfoWindow();
+      google.maps.event.addListener(map, 'click', function() {
+        if (iw != undefined) {
+          iw.close();
+        }
+      });
+      $.each(#{@interns.to_json}, function(i,r){
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(r['lat'], r['lng']),
+          map: map,
+          title: r['name']
+        });
+        marker.info = new google.maps.InfoWindow({
+          content: r['info']
+        });
+        oms.addMarker(marker);
+        google.maps.event.addListener(marker, 'click', function() {
+          if (iw != undefined) {
+            iw.close();
+          }
+          iw = marker.info
+          iw.open(map, marker);
+        });
+        markers.push(marker)
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+<div id="internmap"></div>

@@ -6,7 +6,7 @@
 #   shell.say name
 #
 email     = shell.ask "Which email do you want use for logging into admin?"
-password  = shell.ask "Tell me the password to use:"
+password  = shell.ask "Tell me the password to use:", echo: false
 
 shell.say ""
 

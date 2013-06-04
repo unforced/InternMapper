@@ -1,8 +1,22 @@
 InternMap::App.controllers :interns do
 
   get :index do
-    @interns = Intern.all
-    @interns.map{|intern| {id: intern.id, name: intern.name}}.to_json
+    @interns = Intern.all.map do |intern|
+      imap = {}
+      imap['id'] = intern.id
+      imap['name'] = intern.name
+      imap['school'] = intern.school.name if intern.school
+      imap['company'] = intern.company.name if intern.company
+      imap['lat'], imap['lng'] = intern.location.split(",", 2).map(&:to_f) if intern.location
+      info = ""
+      info += "Name: #{intern.name}\n" if intern.name
+      info += "School: #{intern.school.name}\n" if intern.school
+      info += "Company: #{intern.company.name}\n" if intern.company
+      info += intern.extra_info.to_s
+      imap['info'] = simple_format(info)
+      imap
+    end
+    render 'interns/index'
   end
 
   get :new do
@@ -32,9 +46,11 @@ InternMap::App.controllers :interns do
       @intern[f] = ip[f] if ip[f].present?
     end
 
+    @intern[:info] = ""
+
     if @intern.save
       flash[:notice] = 'Successfully added'
-      redirect '/'
+      redirect '/interns'
     else
       render 'interns/new'
     end

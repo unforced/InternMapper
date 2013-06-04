@@ -58,8 +58,5 @@ module InternMap
     #     render 'errors/505'
     #   end
     #
-    get '/' do
-      render "home/home"
-    end
   end
 end

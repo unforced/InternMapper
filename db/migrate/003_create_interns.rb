@@ -6,6 +6,7 @@ migration 3, :create_interns do
       column :school_id, DataMapper::Property::Integer
       column :company_id, DataMapper::Property::Integer
       column :location, DataMapper::Property::String, :length => 255
+      column :extra_info, DataMapper::Property::Text
     end
   end
 
