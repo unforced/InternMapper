@@ -18,7 +18,6 @@ gem 'rake'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'sass'
 gem 'haml'
-gem 'dm-sqlite-adapter'
 gem 'dm-validations'
 gem 'dm-timestamps'
 gem 'dm-migrations'
@@ -32,6 +31,15 @@ gem 'dm-core'
 # Padrino Stable Gem
 gem 'padrino', '0.11.2'
 gem 'pry'
+
+group :production do
+  gem 'dm-postgres-adapter'
+  gem 'pg'
+end
+
+group :development do
+  gem 'dm-sqlite-adapter'
+end
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

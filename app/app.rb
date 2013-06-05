@@ -58,5 +58,9 @@ module InternMap
     #     render 'errors/505'
     #   end
     #
+
+    get '/' do
+      return "WORK!"
+    end
   end
 end

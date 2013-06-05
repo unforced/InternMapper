@@ -20,6 +20,9 @@ GEM
       dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
+    dm-postgres-adapter (1.2.0)
+      dm-do-adapter (~> 1.2.0)
+      do_postgres (~> 0.10.6)
     dm-sqlite-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_sqlite3 (~> 0.10.6)
@@ -35,6 +38,8 @@ GEM
       uuidtools (~> 2.1)
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
+    do_postgres (0.10.13)
+      data_objects (= 0.10.13)
     do_sqlite3 (0.10.13)
       data_objects (= 0.10.13)
     fastercsv (1.5.5)
@@ -80,6 +85,7 @@ GEM
     padrino-mailer (0.11.2)
       mail (~> 2.5.3)
       padrino-core (= 0.11.2)
+    pg (0.15.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -114,6 +120,7 @@ DEPENDENCIES
   dm-constraints
   dm-core
   dm-migrations
+  dm-postgres-adapter
   dm-sqlite-adapter
   dm-timestamps
   dm-types
@@ -121,6 +128,7 @@ DEPENDENCIES
   haml
   json
   padrino (= 0.11.2)
+  pg
   pry
   rake
   sass
