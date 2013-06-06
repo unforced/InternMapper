@@ -1,7 +1,6 @@
 InternMap::App.controllers :interns do
 
   get :index do
-=begin
     @interns = Intern.all.map do |intern|
       imap = {}
       imap['id'] = intern.id
@@ -17,7 +16,6 @@ InternMap::App.controllers :interns do
       imap['info'] = simple_format(info)
       imap
     end
-=end
     @interns = "[]"
     render 'interns/index'
   end
@@ -30,7 +28,6 @@ InternMap::App.controllers :interns do
   end
 
   post :create do
-=begin
     @intern = Intern.new
     ip = params[:intern]
     @intern.name = ip[:name] || "Anonymous"
@@ -46,7 +43,7 @@ InternMap::App.controllers :interns do
       @intern.company = Company.first_or_create(name: ip[:new_company])
     end
 
-    %i(location extra_info).each do |f|
+    [:location, :extra_info].each do |f|
       @intern[f] = ip[f] if ip[f].present?
     end
 
