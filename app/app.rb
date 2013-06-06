@@ -60,7 +60,7 @@ module InternMap
     #
 
     get '/' do
-      return "WORK!"
+      redirect '/interns'
     end
   end
 end

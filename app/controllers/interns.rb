@@ -16,7 +16,6 @@ InternMap::App.controllers :interns do
       imap['info'] = simple_format(info)
       imap
     end
-    @interns = "[]"
     render 'interns/index'
   end
 
@@ -43,7 +42,7 @@ InternMap::App.controllers :interns do
       @intern.company = Company.first_or_create(name: ip[:new_company])
     end
 
-    [:location, :extra_info].each do |f|
+    %i(location extra_info).each do |f|
       @intern[f] = ip[f] if ip[f].present?
     end
 
@@ -55,6 +54,5 @@ InternMap::App.controllers :interns do
     else
       render 'interns/new'
     end
-=end
   end
 end

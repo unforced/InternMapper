@@ -34,6 +34,7 @@ Bundler.require(:default, PADRINO_ENV)
 # Add your before (RE)load hooks here
 #
 Padrino.before_load do
+  Padrino::Logger::Config[:production][:log_level] = :debug
 end
 
 ##
