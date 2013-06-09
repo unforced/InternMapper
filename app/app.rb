@@ -62,7 +62,7 @@ module InternMap
     get '/' do
       @schools = [["Any", 0]] + School.all.map{|s| [s.name, s.id]}
       @companies = [["Any", 0]] + Company.all.map{|s| [s.name, s.id]}
-      render 'interns/index'
+      render 'home/index'
     end
   end
 end

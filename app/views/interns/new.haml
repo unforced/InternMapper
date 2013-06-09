@@ -8,6 +8,14 @@
 - form_for @intern, url(:interns, :create) do |f|
   %fieldset
     .row
+      .span12
+        %p
+          Any information you include here is accessible to anyone with the link.
+          Do not put any information you are not comfortable sharing.
+        %p
+          Location is the only necessary field, as you need it to be shown on
+          the map, but if you prefer not to disclose that, feel free to only
+          include the general area(SF, San Jose, etc...)
       .span4
         = f.error_messages
         %p

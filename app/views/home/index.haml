@@ -13,7 +13,8 @@
     }
   :javascript
     var map;
-    function initialize() {
+    var markers;
+    function makemap(interns) {
       var sf = new google.maps.LatLng(37.77493, -122.419416);
       var opts = {
         zoom: 12,
@@ -29,7 +30,7 @@
           iw.close();
         }
       });
-      $.each(#{@interns.to_json}, function(i,r){
+      $.each(interns, function(i,r){
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(r['lat'], r['lng']),
           map: map,
@@ -49,9 +50,17 @@
         markers.push(marker)
       });
     }
+    function initialize() {
+      $.get("/interns", makemap);
+    }
     google.maps.event.addDomListener(window, 'load', initialize);
-    $(document).on('change', "
+    $(document).on('change', ".intern-filter", function() {
+      $.get("/interns", {school_id: $("#school-select").val(),
+                         company_id: $("#company-select").val()}, makemap)
+    });
 
+%b School:
 = select_tag(:school, options: @schools, id: "school-select", class: "intern-filter")
+%b Company:
 = select_tag(:company, options: @companies, id: "company-select", class: "intern-filter")
 #internmap

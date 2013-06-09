@@ -9,4 +9,6 @@ class Intern
 
   belongs_to :school, required: false
   belongs_to :company, required: false
+
+  validates_presence_of :location
 end
