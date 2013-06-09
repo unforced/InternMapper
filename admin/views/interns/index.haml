@@ -28,6 +28,8 @@
                       .btn.btn-small.cancel=pat(:cancel)
         %th.header= mat(:intern, :id)
         %th.header= mat(:intern, :name)
+        %th.header= mat(:intern, :location)
+        %th.header= mat(:intern, :extra_info)
         %th.header= mat(:intern, :school_id)
         %th.header= mat(:intern, :company_id)
         %th.header.list-row-action-header
@@ -39,6 +41,8 @@
             =check_box_tag 'intern_ids[]', :value => intern.id, :class => 'list-selectable-checkbox'
           %td.list-column=intern.id
           %td.list-column=intern.name
+          %td.list-column=intern.location
+          %td.list-column=intern.extra_info
           %td.list-column=intern.school_id
           %td.list-column=intern.company_id
           %td.list-column.list-row-action

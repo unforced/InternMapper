@@ -4,6 +4,18 @@
   .controls
     =f.text_field :name, :class => 'input-xlarge input-with-feedback', :autofocus => true
     %span.help-inline=error ? f.error_message_on(:name, :class => 'text-error') : pat(:example)
+- error = @intern.errors.key?(:location) && @intern.errors[:location].count > 0
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :location, :class => 'control-label'
+  .controls
+    =f.text_field :location, :class => 'input-xlarge input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:location, :class => 'text-error') : pat(:example)
+- error = @intern.errors.key?(:extra_info) && @intern.errors[:extra_info].count > 0
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :extra_info, :class => 'control-label'
+  .controls
+    =f.text_field :extra_info, :class => 'input-xlarge input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:extra_info, :class => 'text-error') : pat(:example)
 - error = @intern.errors.key?(:school_id) && @intern.errors[:school_id].count > 0
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :school_id, :class => 'control-label'
