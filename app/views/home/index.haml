@@ -66,13 +66,13 @@
     });
 
 .row#maprow
-  .span10#mapspan
+  .span9#mapspan
     %b School:
     = select_tag(:school, options: @schools, id: "school-select", class: "intern-filter")
     %b Company:
     = select_tag(:company, options: @companies, id: "company-select", class: "intern-filter")
     #internmap
-  .span2
+  .span3
     %p.bold Fun Stats:
     %p Top School: #{@bestschool.name} (#{@bestschool.interns.count})
     %p Top Company: #{@bestcompany.name} (#{@bestcompany.interns.count})
