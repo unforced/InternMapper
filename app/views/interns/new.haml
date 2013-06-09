@@ -4,6 +4,10 @@
     $(document).ready(function(){
       $('input#intern_location').locationPicker();
     });
+  :css
+    #intern_location-picker img {
+      max-width: none;
+    }
 
 - form_for @intern, url(:interns, :create) do |f|
   %fieldset
