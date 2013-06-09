@@ -32,6 +32,8 @@ InternMap::App.controllers :interns do
   end
 
   post :create do
+    ip = params[:intern]
+
     if !(ip[:location] =~ /[-\d.]+,[-\d.]+/)
       flash[:error] = "Please enter the location as lat,lng (Click search)"
       redirect 'interns/new'
@@ -43,7 +45,6 @@ InternMap::App.controllers :interns do
     end
 
     @intern = Intern.new
-    ip = params[:intern]
     @intern.name = ip[:name]
     if ip[:school].present?
       @intern.school = School.get(ip[:school].to_i)
