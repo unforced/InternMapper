@@ -1,7 +1,7 @@
 - content_for :head do
   = javascript_include_tag 'markerclusterer', 'oms.min'
   :css
-    html, body, #content {
+    html, body, #content, #maprow, #mapspan {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -13,6 +13,9 @@
     }
     #internmap img {
       max-width: none;
+    }
+    .bold {
+      font-weight: bold;
     }
   :javascript
     var map;
@@ -62,8 +65,17 @@
                          company_id: $("#company-select").val()}, makemap)
     });
 
-%b School:
-= select_tag(:school, options: @schools, id: "school-select", class: "intern-filter")
-%b Company:
-= select_tag(:company, options: @companies, id: "company-select", class: "intern-filter")
-#internmap
+.row#maprow
+  .span10#mapspan
+    %b School:
+    = select_tag(:school, options: @schools, id: "school-select", class: "intern-filter")
+    %b Company:
+    = select_tag(:company, options: @companies, id: "company-select", class: "intern-filter")
+    #internmap
+  .span2
+    %p.bold Fun Stats:
+    %p Most Popular School: #{@bestschool.name} (#{@bestschool.interns.count})
+    %p Most Popular Company: #{@bestcompany.name} (#{@bestcompany.interns.count})
+    %p Total Interns: #{@interns_count}
+
+
