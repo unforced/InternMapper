@@ -72,8 +72,10 @@
     #internmap
   .span3
     %p.bold Fun Stats:
-    %p Top School: #{@bestschool.name} (#{@bestschool.interns.count})
-    %p Top Company: #{@bestcompany.name} (#{@bestcompany.interns.count})
+    - if @bestschool
+      %p Top School: #{@bestschool.name} (#{@bestschool.interns.count})
+    - if @bestcompany
+      %p Top Company: #{@bestcompany.name} (#{@bestcompany.interns.count})
     %p Total Interns: #{@interns_count}
 
 
