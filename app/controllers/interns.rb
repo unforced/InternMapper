@@ -32,9 +32,19 @@ InternMap::App.controllers :interns do
   end
 
   post :create do
+    if !(ip[:location] =~ /[-\d.]+,[-\d.]+/)
+      flash[:error] = "Please enter the location as lat,lng (Click search)"
+      redirect 'interns/new'
+    end
+
+    if ip[:name].blank?
+      flash[:error] = "Please enter a name (You can put anonymous)"
+      redirect 'interns/new'
+    end
+
     @intern = Intern.new
     ip = params[:intern]
-    @intern.name = ip[:name] || "Anonymous"
+    @intern.name = ip[:name]
     if ip[:school].present?
       @intern.school = School.get(ip[:school].to_i)
     elsif ip[:new_school].present?
@@ -50,13 +60,8 @@ InternMap::App.controllers :interns do
     @intern[:location] = ip[:location] if ip[:location].present?
     @intern[:extra_info] = ip[:extra_info] if ip[:extra_info].present?
 
-    if !(ip[:location] =~ /[-\d.]+,[-\d.]+/)
-      flash[:error] = "Please enter the location as lat,lng (Click search)"
-      redirect 'interns/new'
-    end
-
     if @intern.save
-      flash[:notice] = 'Successfully added'
+      flash[:success] = 'Successfully added'
       redirect '/'
     else
       @schools = School.all
