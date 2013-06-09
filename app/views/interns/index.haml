@@ -59,6 +59,8 @@
                          company_id: $("#company-select").val()}, makemap)
     });
 
+%b School:
 = select_tag(:school, options: @schools, id: "school-select", class: "intern-filter")
+%b Company:
 = select_tag(:company, options: @companies, id: "company-select", class: "intern-filter")
 #internmap
