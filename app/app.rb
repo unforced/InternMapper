@@ -60,7 +60,9 @@ module InternMap
     #
 
     get '/' do
-      redirect '/interns'
+      @schools = [["Any", 0]] + School.all.map{|s| [s.name, s.id]}
+      @companies = [["Any", 0]] + Company.all.map{|s| [s.name, s.id]}
+      render 'interns/index'
     end
   end
 end

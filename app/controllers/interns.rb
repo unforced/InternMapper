@@ -1,7 +1,13 @@
 InternMap::App.controllers :interns do
 
-  get :index do
-    @interns = Intern.all.map do |intern|
+  get :index, provides: :json do
+    sid = params[:school_id].to_i
+    cid = params[:company_id].to_i
+    search = {}
+    search[:school_id] = sid if School.get(sid)
+    search[:company_id] = cid if Company.get(cid)
+
+    @interns = Intern.all(search).map do |intern|
       imap = {}
       imap['id'] = intern.id
       imap['name'] = intern.name
@@ -15,8 +21,7 @@ InternMap::App.controllers :interns do
       info += intern.extra_info.to_s
       imap['info'] = simple_format(info)
       imap
-    end
-    render 'interns/index'
+    end.to_json
   end
 
   get :new do
@@ -42,15 +47,12 @@ InternMap::App.controllers :interns do
       @intern.company = Company.first_or_create(name: ip[:new_company])
     end
 
-    %i(location extra_info).each do |f|
-      @intern[f] = ip[f] if ip[f].present?
-    end
-
-    @intern[:info] = ""
+    @intern[:location] = ip[:location] if ip[:location].present?
+    @intern[:extra_info] = ip[:extra_info] if ip[:extra_info].present?
 
     if @intern.save
       flash[:notice] = 'Successfully added'
-      redirect '/interns'
+      redirect '/'
     else
       render 'interns/new'
     end
