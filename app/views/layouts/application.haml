@@ -5,6 +5,8 @@
     = stylesheet_link_tag 'bootstrap', 'bootstrap-responsive'
     = javascript_include_tag 'jquery', 'jquery-ujs', 'bootstrap', 'https://maps.google.com/maps/api/js?sensor=true'
     = yield_content :head
+    :css
+      .error { color: red }
   %body
     %header.navbar
       .navbar-inner
@@ -15,5 +17,6 @@
               %li
                 = link_to 'Add Yourself!', url(:interns, :new)
     = flash_tag :notice
+    = flash_tag :error
     .container#content= yield
 

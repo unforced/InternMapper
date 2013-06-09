@@ -50,10 +50,17 @@ InternMap::App.controllers :interns do
     @intern[:location] = ip[:location] if ip[:location].present?
     @intern[:extra_info] = ip[:extra_info] if ip[:extra_info].present?
 
+    if !(ip[:location] =~ /[-\d.]+,[-\d.]+/)
+      flash[:error] = "Please enter the location as lat,lng (Click search)"
+      redirect 'interns/new'
+    end
+
     if @intern.save
       flash[:notice] = 'Successfully added'
       redirect '/'
     else
+      @schools = School.all
+      @companies = Company.all
       render 'interns/new'
     end
   end
