@@ -62,8 +62,8 @@ module InternMap
     get '/' do
       @schools = [["Any", 0]] + School.all.map{|s| [s.name, s.id]}
       @companies = [["Any", 0]] + Company.all.map{|s| [s.name, s.id]}
-      @bestschool = School.all.to_a.max_by{|s| s.interns.count}
-      @bestcompany = Company.all.to_a.max_by{|c| c.interns.count}
+      @bestschool = School.get(Intern.aggregate(:school_id, :all.count).max_by{|s| s[1]}[0])
+      @bestcompany = Company.get(Intern.aggregate(:company_id, :all.count).max_by{|s| s[1]}[0])
       @interns_count = Intern.count
       render 'home/index'
     end
