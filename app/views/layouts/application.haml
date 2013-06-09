@@ -14,9 +14,8 @@
             %ul.nav
               %li
                 = link_to 'Add Yourself!', url(:interns, :new)
-    .alert.alert-success
-      = flash_tag :success
-    .alert.alert-error
-      = flash_tag :error
+
+    = flash_tag :success, class: "alert alert-success"
+    = flash_tag :error, class: "alert alert-error"
     .container#content= yield
 
