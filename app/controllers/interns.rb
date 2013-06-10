@@ -26,8 +26,8 @@ InternMap::App.controllers :interns do
 
   get :new do
     @intern = Intern.new
-    @schools = School.all
-    @companies = Company.all
+    @schools = School.all(:order => :name.asc)
+    @companies = Company.all(:order => :name.asc)
     render 'interns/new'
   end
 
