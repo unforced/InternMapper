@@ -60,8 +60,8 @@ module InternMap
     #
 
     get '/' do
-      @schools = [["Any", 0]] + School.all.map{|s| [s.name, s.id]}
-      @companies = [["Any", 0]] + Company.all.map{|s| [s.name, s.id]}
+      @schools = [["Any", 0]] + School.all(:order => :name.asc).map{|s| [s.name, s.id]}
+      @companies = [["Any", 0]] + Company.all(:order => :name.asc).map{|s| [s.name, s.id]}
       render 'home/index'
     end
   end
