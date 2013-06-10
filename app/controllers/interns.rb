@@ -33,9 +33,21 @@ InternMap::App.controllers :interns do
 
   post :create do
     ip = params[:intern]
-
     @intern = Intern.new
+    @intern.location = ip[:location] if ip[:location].present?
+    @intern.extra_info = ip[:extra_info] if ip[:extra_info].present?
     @intern.name = ip[:name]
+
+    if !(ip[:location] =~ /^[-\d.]+,[-\d.]+$/)
+      flash.now[:error] = "Please enter the location as lat,lng (Click search)"
+      errored=true
+    end
+
+    if ip[:name].blank?
+      flash.now[:error] = "Please enter a name (You can put anonymous)"
+      errored=true
+    end
+
     if ip[:school].present?
       @intern.school = School.get(ip[:school].to_i)
     elsif ip[:new_school].present?
@@ -48,18 +60,6 @@ InternMap::App.controllers :interns do
       @intern.company = Company.first_or_create(name: ip[:new_company])
     end
 
-    @intern.location = ip[:location] if ip[:location].present?
-    @intern.location = ip[:extra_info] if ip[:extra_info].present?
-
-    if !(ip[:location] =~ /[-\d.]+,[-\d.]+/)
-      flash.now[:error] = "Please enter the location as lat,lng (Click search)"
-      errored=true
-    end
-
-    if ip[:name].blank?
-      flash.now[:error] = "Please enter a name (You can put anonymous)"
-      errored=true
-    end
 
     if !errored && @intern.save
       flash[:success] = 'Successfully added'
